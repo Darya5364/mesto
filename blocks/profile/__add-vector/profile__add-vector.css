@@ -1,0 +1,10 @@
+.profile__add-vector {
+    width: 22px;
+    margin:auto;
+}
+
+@media (max-width: 768px) {
+    .profile__add-vector {
+        width: 16px;
+    }
+} 

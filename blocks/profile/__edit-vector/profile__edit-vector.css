@@ -1,0 +1,13 @@
+.profile__edit-vector {
+    width: 10px;
+    display: flex;
+    margin: auto;
+
+}
+
+@media (max-width: 768px) {
+    .profile__edit-vector {
+        width: 7.5px;
+        
+    }
+} 

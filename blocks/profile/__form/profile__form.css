@@ -1,0 +1,14 @@
+.profile__form {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .profile__form {
+        gap: 8px;
+        align-items: center;
+    }
+}  
