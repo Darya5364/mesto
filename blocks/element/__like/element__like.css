@@ -2,5 +2,11 @@
     border: none;
     padding: 3px 0 0;
     align-self: center;
-    background-color: #fff;
+    background-color: transparent;
+  }
+
+  .element__like:hover {
+    opacity: 0.5;
+    transition: opacity 1s ease;
+    cursor: pointer;
   }

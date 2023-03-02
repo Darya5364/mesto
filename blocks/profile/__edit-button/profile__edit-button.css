@@ -2,10 +2,11 @@
     width: 24px;
     height: 24px;
     border: 1px solid #fff;
-    background-color: #000;
+    background-color: transparent;
     padding: 0;
     margin:auto;
     margin-top: 35px;
+    flex-shrink: 0;
    }
  
    .profile__edit-button:hover {

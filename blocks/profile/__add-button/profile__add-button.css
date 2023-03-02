@@ -5,9 +5,10 @@
     align-items: center;
     justify-content: center;
     border: 2px solid #fff;
-    background-color: #000;
+    background-color: transparent;
     border-radius: 2px;
     padding: 0;
+    flex-shrink: 0;
   }
 
   .profile__add-button:hover {
