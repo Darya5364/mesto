@@ -9,8 +9,8 @@ function openPopup() {
 };
 
 const closePopupButton = document.querySelector('.popup__close-button'); // крестик (закрытие формы)
-const nameInput = document.querySelector('.popup__field_name_input'); // поле формы в DOM с именем
-const jobInput = document.querySelector('.popup__field_job_input');  //  поле формы в DOM с профессией
+const nameInput = document.querySelector('.popup__field_input_name'); // поле формы в DOM с именем
+const jobInput = document.querySelector('.popup__field_input_job');  //  поле формы в DOM с профессией
 const titleProfile = document.querySelector('.profile__title');        // поле тестовой части страницы  с именем
 const subtitleProfile = document.querySelector('.profile__subtitle');  // поле тестовой части страницы с профессией
 
@@ -21,7 +21,7 @@ function closePopup() {
 };
 
 
-const formElement = document.querySelector('.popup__container'); // Находим форму в DOM
+const formElement = document.querySelector('.popup__form'); // Находим форму в DOM
 
 // Обработчик «отправки» формы, пока без отправления
 function handleFormSubmit (evt) {
