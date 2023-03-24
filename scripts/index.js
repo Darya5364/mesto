@@ -1,32 +1,32 @@
-const editProfileButton = document.querySelector('.profile__edit-button'); // КНОПКА открытия ФОРМЫ 1
-const editPopup = document.querySelector('.popup'); // попап ФОРМЫ 1
+const buttonEditPopupProfile = document.querySelector('.profile__edit-button'); // КНОПКА открытия ФОРМЫ 1
+const editPopup = document.querySelector('.popup_edit'); // попап ФОРМЫ 1
 const nameInput = document.querySelector('.popup__field_input_name'); // поле формы в DOM с именем
 const jobInput = document.querySelector('.popup__field_input_job');  //  поле формы в DOM с профессией
 const titleProfile = document.querySelector('.profile__title');        // поле тестовой части страницы  с именем
 const subtitleProfile = document.querySelector('.profile__subtitle');  // поле тестовой части страницы с профессией
 
-editProfileButton.addEventListener('click', function(){ //открытие ФОРМЫ 1 ПОПАП по клику
+buttonEditPopupProfile.addEventListener('click', function(){ //открытие ФОРМЫ 1 ПОПАП по клику
     openPopup(editPopup);
     nameInput.value = titleProfile.textContent; //присваиваем значения с текстого контента форме
     jobInput.value = subtitleProfile.textContent;
 }); 
 
-const closePopupButton = document.querySelector('.popup__close-button'); // КНОПКА закрытия ФОРМЫ 1 (крестик)
-closePopupButton.addEventListener('click', function(){ // закрытие ФОРМЫ 1 ПОПАП по клику
+const buttonClosePopupProfileEdit = document.querySelector('.popup__close-button'); // КНОПКА закрытия ФОРМЫ 1 (крестик)
+buttonClosePopupProfileEdit.addEventListener('click', function(){ // закрытие ФОРМЫ 1 ПОПАП по клику
     closePopup(editPopup);
 }); 
 
-const formElement = document.querySelector('.popup__form'); // Находим форму в DOM
+const formEditElement = document.querySelector('.popup__form_edit'); // Находим форму в DOM
 
 // Обработчик «отправки» ФОРМЫ 1, пока без отправления
-function handleFormSubmit (evt) {
+function handleFormSubmitEdit (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     titleProfile.textContent = nameInput.value; //присваиваем техконтенту страницы значения с формы (input)
     subtitleProfile.textContent = jobInput.value;
     closePopup(editPopup);
 };
 
-formElement.addEventListener('submit', handleFormSubmit); //выхов сохранения ФОРМЫ 1
+formEditElement.addEventListener('submit', handleFormSubmitEdit); //выхов сохранения ФОРМЫ 1
 
 
 // ОТКРЫТИЕ ПОПАП функция
@@ -39,54 +39,28 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');  //закрытие попап
 };
 
-const addProfileButton = document.querySelector('.profile__add-button'); // КНОПКА открытия ФОРМЫ 2
+const buttonAddPopupProfile = document.querySelector('.profile__add-button'); // КНОПКА открытия ФОРМЫ 2
 const addPopup = document.querySelector('.popup_add');                     // попап ФОРМЫ 2
-addProfileButton.addEventListener('click', function (){                   //открытие ФОРМЫ 2 ПОПАП по клику
+buttonAddPopupProfile.addEventListener('click', function (){                   //открытие ФОРМЫ 2 ПОПАП по клику
     openPopup(addPopup);
 }); 
 
-const closePopupButtonAdd = document.querySelector('.popup__close-button_add'); // КНОПКА закрытия ФОРМЫ 1 (крестик)
-closePopupButtonAdd.addEventListener('click', function(){                       //закрытие ФОРМЫ 2 ПОПАП по клику
+const buttonClosePopupProfileAdd = document.querySelector('.popup__close-button_add'); // КНОПКА закрытия ФОРМЫ 2 (крестик)
+buttonClosePopupProfileAdd.addEventListener('click', function(){                       //закрытие ФОРМЫ 2 ПОПАП по клику
     closePopup(addPopup);        
     mestoInput.value = '';
     linkInput.value = '';
 });
 
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
 
   const elementsList = document.querySelector('.elements');
-  const elementTemplate = document.querySelector('.element__template').content;
-  
+  const elementTemplate = document.querySelector('.element__template').content.querySelector('.element');
+ 
+
   // СОЗДАНИЕ карточного массива
-  function addCard(el) {
+  function createCard(el) {
     const cardElement = elementTemplate.cloneNode(true);
-    
     const elementPhoto = cardElement.querySelector('.element__photo');
     const elementText = cardElement.querySelector('.element__text');
     elementPhoto.setAttribute('src', el.link);
@@ -99,15 +73,18 @@ const initialCards = [
     const elementDeleteIcon = cardElement.querySelector('.element__delete');
     elementDeleteIcon.addEventListener ('click', deleteCard);                  //вызов УДАЛЕНИЯ карточки
 
-    elementPhoto.addEventListener ('click', zoomPhoto);                        //вызов УВЕЛИЧЕНИЯ карточки
+    elementPhoto.addEventListener ('click', () =>zoomPhoto(el));               //вызов УВЕЛИЧЕНИЯ карточки
 
-    elementsList.prepend(cardElement);
-    
-    return cardElement;
+    return cardElement;                                                        // возвращение карточки
   };
-  
-  initialCards.forEach (addCard);
 
+  //Добавление карточек 
+  initialCards.forEach ((el) => {
+    const newCard =createCard(el);
+    elementsList.prepend(newCard);
+  });
+
+  
 // ЛАЙК КАРТОЧКИ функция
 function clickLike(evt) {
     evt.target.classList.toggle('element__like_active'); //функция лайка карточки
@@ -124,14 +101,16 @@ const photoPopup = document.querySelector('.popup__photo');
 const namePhotoPopup = document.querySelector('.popup__photo-name');
 
 // УВЕЛИЧЕНИЕ ФОТО функция
-function zoomPhoto(evt) {
+function zoomPhoto(el) {
 openPopup(zoomPopup);
- namePhotoPopup.textContent =  evt.target.alt;
- photoPopup.src =  evt.target.src;
+ namePhotoPopup.textContent = el.name;
+ photoPopup.setAttribute('src', el.link);
+ photoPopup.setAttribute('alt', el.name);
 };
+
 // Закрытие увеличенного фото
-const closePopupButtonPhoto = document.querySelector('.popup__close-button_photo');
-closePopupButtonPhoto.addEventListener('click', function(){
+const buttonClosePopupPhoto = document.querySelector('.popup__close-button_photo');
+buttonClosePopupPhoto.addEventListener('click', function(){
   closePopup(zoomPopup);
 });
 
@@ -146,7 +125,7 @@ function handleFormSubmitAdd (evt) {
 
     const element = {link: linkInput.value, name: mestoInput.value};
 
-    elementsList.prepend(addCard(element));
+    elementsList.prepend(createCard(element));
     closePopup(addPopup);
     mestoInput.value = '';
     linkInput.value = '';
